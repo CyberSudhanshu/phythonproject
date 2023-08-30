@@ -11,7 +11,8 @@ qr=qrcode.QRCode(
         box_size= 10,
         border=5
         )
-data= input("hi am sudhanshu and i hate you ")
+#we can remove that data also
+data= input("this is qr data wanna enter anything ")
 qr.add_data(data)
 qr.make(fit=(True) )
 img=qr.make_image(fill ="black",black_color="white")
