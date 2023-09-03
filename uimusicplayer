@@ -1,0 +1,56 @@
+import pygame
+import tkinter as tk
+from tkinter import ttk
+from tkinter import filedialog
+
+
+# Initialize Pygame
+pygame.init()
+
+# Create a Pygame mixer object
+pygame.mixer.init()
+
+# Create a tkinter window
+root = tk.Tk()
+root.title("Music Player")
+root.geometry("450x350")
+
+
+# Create a list to store the playlist
+playlist = [tk.Listbox(root, font="Helvetica 12 bold", bg='yellow', selectmode=tk.SINGLE)]
+
+# Create functions for the music player controls
+def play_music():
+    if playlist:
+        pygame.mixer.music.load(playlist[0])
+        pygame.mixer.music.play()
+
+def stop_music():
+    pygame.mixer.music.stop()
+
+def next_track():
+    if playlist:
+        pygame.mixer.music.stop()
+        playlist.pop(0)
+        play_music()
+def add_to_playlist():
+    file_path = filedialog.askopenfilename(filetypes=[("Audio Files", "*.mp3 *.wav")])
+    if file_path:
+        playlist.append(file_path)
+        track_name = file_path.split("/")[-1]
+        playlist_box.insert(tk.END, track_name)
+
+# Create UI elements
+play_button = tk.Button(root, text="Play", width=50, height=1, command=play_music, bg="red", fg="white")
+stop_button = tk.Button(root, text="Stop", width=40, height=1, command=stop_music, bg="blue", fg="white")
+next_button = tk.Button(root, text="Next", width=30, height=1,command=next_track, bg="navy", fg="white")
+add_button = tk.Button(root, text="Add to Playlist",width=20, height=1, command=add_to_playlist, bg="green", fg="white")
+playlist_box = tk.Listbox(root, selectmode=tk.SINGLE , width=100, height=50,  bg="#1fcc8a", fg="#fc0303")
+
+# Place UI elements on the window
+play_button.pack(pady=5)
+stop_button.pack(pady=5)
+next_button.pack(pady=5)
+add_button.pack(pady=5)
+playlist_box.pack()
+root.mainloop()
