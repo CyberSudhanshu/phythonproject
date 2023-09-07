@@ -1,0 +1,2 @@
+this is scaner which we can scan date from scaner
+
